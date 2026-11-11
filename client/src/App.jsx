@@ -33,6 +33,7 @@ export default function App() {
   const [overview, setOverview] = useState(null);
   const [error, setError] = useState('');
   const [syncing, setSyncing] = useState(false);
+  const [syncNote, setSyncNote] = useState('');
 
   const refresh = useCallback(async () => {
     try {
@@ -52,8 +53,10 @@ export default function App() {
   async function sync() {
     setSyncing(true);
     try {
-      await api.post('/sync');
+      const { updated } = await api.post('/sync');
       await refresh();
+      setSyncNote(updated > 0 ? `Updated ${updated} item${updated === 1 ? '' : 's'}` : 'Already up to date');
+      setTimeout(() => setSyncNote(''), 4000);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -92,6 +95,9 @@ export default function App() {
           <button className="btn ghost small" onClick={sync} disabled={syncing || !health?.paypal}>
             {syncing ? 'Syncing…' : 'Sync with PayPal'}
           </button>
+          <span className="sync-note" role="status">
+            {syncNote && `✓ ${syncNote}`}
+          </span>
         </div>
       </aside>
 

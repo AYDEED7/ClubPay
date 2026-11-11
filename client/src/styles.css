@@ -223,3 +223,5 @@ tr:last-child td { border: 0; }
   .receipt { grid-template-columns: 1fr; }
   .actions { margin-left: 0; }
 }
+
+.sync-note { font-size: 12px; font-weight: 600; color: #a7f3d0; min-height: 18px; }
