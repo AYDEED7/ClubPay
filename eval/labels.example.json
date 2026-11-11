@@ -1,0 +1,4 @@
+[
+  { "file": "pizza.jpg", "vendor": "Domino's", "total": 42.18, "date": "2026-11-03", "decision": "approve" },
+  { "file": "hardware.png", "vendor": "Home Depot", "total": 187.4, "date": "2026-10-28", "decision": "flag" }
+]

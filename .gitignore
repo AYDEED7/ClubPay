@@ -1,0 +1,9 @@
+node_modules/
+dist/
+data/
+.env
+.env.local
+*.log
+.claude/
+eval/receipts/*
+!eval/receipts/.gitkeep

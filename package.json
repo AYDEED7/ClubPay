@@ -1,0 +1,29 @@
+{
+  "name": "clubpay",
+  "version": "0.1.0",
+  "description": "AI treasurer for student clubs: Claude reviews receipts, PayPal moves the money.",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.5"
+  },
+  "scripts": {
+    "dev": "concurrently -n server,client -c blue,green \"node --watch --env-file-if-exists=.env server/index.js\" \"vite\"",
+    "build": "vite build",
+    "start": "node server/index.js",
+    "eval": "node eval/run.js"
+  },
+  "dependencies": {
+    "@google/genai": "^3.1.0",
+    "express": "^5.3.0",
+    "multer": "^2.5.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.3.0",
+    "concurrently": "^10.0.7",
+    "vite": "^8.3.8"
+  }
+}
