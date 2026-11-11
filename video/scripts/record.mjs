@@ -15,8 +15,9 @@ fs.rmSync(FRAMES, { recursive: true, force: true });
 fs.mkdirSync(FRAMES, { recursive: true });
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-const browser = await chromium.launch();
-const context = await browser.newContext({ viewport: { width: 1280, height: 720 }, deviceScaleFactor: 1.5 });
+// A 1280x720 page drawn at 1.5x, so the captured frames are a true 1920x1080.
+const browser = await chromium.launch({ args: ['--window-size=1280,720', '--force-device-scale-factor=1.5'] });
+const context = await browser.newContext({ viewport: null });
 
 // A visible pointer, because headless browsers do not draw one.
 await context.addInitScript(() => {

@@ -1,13 +1,13 @@
-﻿{
-    "title":  5.65,
-    "problem":  12.92,
-    "dashboard":  8.69,
-    "upload":  13.52,
-    "reject":  14.28,
-    "pay":  10.02,
-    "dues":  7.46,
-    "assistant":  8.51,
-    "ledger":  9.06,
-    "architecture":  9.83,
-    "outro":  8.01
+{
+  "title": 4.99,
+  "problem": 12.07,
+  "dashboard": 8.02,
+  "upload": 12.65,
+  "reject": 12.41,
+  "pay": 9.58,
+  "dues": 6.67,
+  "assistant": 7.92,
+  "ledger": 8.74,
+  "architecture": 8.11,
+  "outro": 6.26
 }

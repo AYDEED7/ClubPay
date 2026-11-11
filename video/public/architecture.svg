@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 800" width="1280" height="800" font-family="'Segoe UI', system-ui, -apple-system, Roboto, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#4A5675"/>
+    </marker>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#131A2B" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <rect width="1280" height="800" fill="#F4F6FB"/>
+
+  <!-- Title -->
+  <rect x="64" y="44" width="44" height="44" rx="11" fill="#2F5BEA"/>
+  <text x="86" y="74" text-anchor="middle" font-size="22" font-weight="700" fill="#FFFFFF">C</text>
+  <text x="124" y="64" font-size="24" font-weight="700" fill="#131A2B">ClubPay</text>
+  <text x="124" y="86" font-size="14" fill="#667089">How a receipt becomes a PayPal payment, with one human click</text>
+
+  <!-- Column labels -->
+  <g font-size="12" font-weight="700" fill="#667089" letter-spacing="1.2">
+    <text x="64" y="150">PEOPLE</text>
+    <text x="900" y="150">AI</text>
+  </g>
+
+
+  <!-- People -->
+  <g filter="url(#shadow)">
+    <rect x="64" y="170" width="220" height="100" rx="16" fill="#FFF3DC" stroke="#D98A00" stroke-width="2"/>
+    <rect x="64" y="425" width="220" height="100" rx="16" fill="#FFF3DC" stroke="#D98A00" stroke-width="2"/>
+  </g>
+  <text x="174" y="214" text-anchor="middle" font-size="17" font-weight="700" fill="#131A2B">Club member</text>
+  <text x="174" y="238" text-anchor="middle" font-size="13" fill="#7A5A1E">Paid out of pocket</text>
+  <text x="174" y="469" text-anchor="middle" font-size="17" font-weight="700" fill="#131A2B">Treasurer</text>
+  <text x="174" y="493" text-anchor="middle" font-size="13" fill="#7A5A1E">Makes the final call</text>
+
+  <!-- ClubPay container -->
+  <rect x="380" y="130" width="380" height="490" rx="20" fill="#FFFFFF" stroke="#2F5BEA" stroke-width="2" filter="url(#shadow)"/>
+  <text x="404" y="162" font-size="12" font-weight="700" fill="#2F5BEA" letter-spacing="1.2">CLUBPAY</text>
+
+  <!-- PayPal container -->
+  <rect x="900" y="340" width="316" height="280" rx="20" fill="#FFFFFF" stroke="#12805C" stroke-width="2" filter="url(#shadow)"/>
+  <text x="924" y="372" font-size="12" font-weight="700" fill="#12805C" letter-spacing="1.2">PAYPAL SANDBOX</text>
+
+  <!-- Connectors (above the container frames, below the cards) -->
+  <g fill="none" stroke="#4A5675" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)">
+    <path d="M284 220 H408"/>
+    <path d="M284 475 H345 V250 H408"/>
+    <path d="M570 280 V338"/>
+    <path d="M510 430 V498"/>
+    <path d="M730 365 H815 V205 H898"/>
+    <path d="M900 245 H845 V385 H732"/>
+    <path d="M730 420 H922"/>
+    <path d="M700 430 V495 H922"/>
+    <path d="M924 570 H650 V432"/>
+  </g>
+
+  <rect x="410" y="180" width="320" height="100" rx="14" fill="#E9EEFF" stroke="#2F5BEA" stroke-width="1.5"/>
+  <text x="570" y="222" text-anchor="middle" font-size="17" font-weight="700" fill="#131A2B">React app</text>
+  <text x="570" y="246" text-anchor="middle" font-size="13" fill="#4A5675">Receipts, dues, AG Grid ledger, assistant</text>
+
+  <rect x="410" y="340" width="320" height="90" rx="14" fill="#E9EEFF" stroke="#2F5BEA" stroke-width="1.5"/>
+  <text x="570" y="378" text-anchor="middle" font-size="17" font-weight="700" fill="#131A2B">Express API</text>
+  <text x="570" y="402" text-anchor="middle" font-size="13" fill="#4A5675">Node.js, duplicate check, approval gate</text>
+
+  <rect x="410" y="500" width="200" height="80" rx="14" fill="#F4F6FB" stroke="#9AA6C4" stroke-width="1.5"/>
+  <text x="510" y="535" text-anchor="middle" font-size="16" font-weight="700" fill="#131A2B">SQLite ledger</text>
+  <text x="510" y="557" text-anchor="middle" font-size="13" fill="#4A5675">Every decision, kept</text>
+
+  <!-- Gemini -->
+  <rect x="900" y="170" width="316" height="110" rx="16" fill="#F1E8FF" stroke="#8A5CF6" stroke-width="2" filter="url(#shadow)"/>
+  <text x="1058" y="212" text-anchor="middle" font-size="17" font-weight="700" fill="#131A2B">Google Gemini</text>
+  <text x="1058" y="236" text-anchor="middle" font-size="13" fill="#5B3FA8">Reads the receipt, checks club rules,</text>
+  <text x="1058" y="254" text-anchor="middle" font-size="13" fill="#5B3FA8">runs the treasurer assistant</text>
+
+
+  <g>
+    <rect x="924" y="390" width="268" height="60" rx="12" fill="#E3F6EE" stroke="#12805C" stroke-width="1.5"/>
+    <text x="944" y="417" font-size="15" font-weight="700" fill="#131A2B">Payouts</text>
+    <text x="944" y="437" font-size="13" fill="#2E6B55">Reimburses the member</text>
+
+    <rect x="924" y="465" width="268" height="60" rx="12" fill="#E3F6EE" stroke="#12805C" stroke-width="1.5"/>
+    <text x="944" y="492" font-size="15" font-weight="700" fill="#131A2B">Invoicing</text>
+    <text x="944" y="512" font-size="13" fill="#2E6B55">Collects dues, sends reminders</text>
+
+    <rect x="924" y="540" width="268" height="60" rx="12" fill="#E3F6EE" stroke="#12805C" stroke-width="1.5"/>
+    <text x="944" y="567" font-size="15" font-weight="700" fill="#131A2B">Webhooks</text>
+    <text x="944" y="587" font-size="13" fill="#2E6B55">Confirms the money moved</text>
+  </g>
+
+  <!-- Small label on the dues line -->
+  <rect x="786" y="483" width="74" height="24" rx="12" fill="#FFFFFF" stroke="#C9D1E3"/>
+  <text x="823" y="499" text-anchor="middle" font-size="12" fill="#4A5675">Bill dues</text>
+
+  <!-- Step badges -->
+  <g font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">
+    <circle cx="332" cy="220" r="14" fill="#131A2B"/><text x="332" y="225">1</text>
+    <circle cx="815" cy="285" r="14" fill="#131A2B"/><text x="815" y="290">2</text>
+    <circle cx="845" cy="320" r="14" fill="#131A2B"/><text x="845" y="325">3</text>
+    <circle cx="345" cy="365" r="14" fill="#131A2B"/><text x="345" y="370">4</text>
+    <circle cx="830" cy="420" r="14" fill="#131A2B"/><text x="830" y="425">5</text>
+    <circle cx="830" cy="570" r="14" fill="#131A2B"/><text x="830" y="575">6</text>
+  </g>
+
+  <!-- Legend -->
+  <rect x="64" y="660" width="1152" height="100" rx="16" fill="#FFFFFF" stroke="#E3E7F0"/>
+  <g font-size="14" fill="#131A2B">
+    <g font-weight="700" fill="#FFFFFF" text-anchor="middle" font-size="13">
+      <circle cx="100" cy="694" r="12" fill="#131A2B"/><text x="100" y="699">1</text>
+      <circle cx="484" cy="694" r="12" fill="#131A2B"/><text x="484" y="699">2</text>
+      <circle cx="868" cy="694" r="12" fill="#131A2B"/><text x="868" y="699">3</text>
+      <circle cx="100" cy="730" r="12" fill="#131A2B"/><text x="100" y="735">4</text>
+      <circle cx="484" cy="730" r="12" fill="#131A2B"/><text x="484" y="735">5</text>
+      <circle cx="868" cy="730" r="12" fill="#131A2B"/><text x="868" y="735">6</text>
+    </g>
+    <text x="122" y="699">Member uploads a receipt photo</text>
+    <text x="506" y="699">Receipt and club rules go to Gemini</text>
+    <text x="890" y="699">Gemini recommends approve, flag or reject</text>
+    <text x="122" y="735">Treasurer approves with one click</text>
+    <text x="506" y="735">PayPal Payout goes to the member</text>
+    <text x="890" y="735">Verified webhook marks it paid</text>
+  </g>
+</svg>
