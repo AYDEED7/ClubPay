@@ -7,3 +7,9 @@ data/
 .claude/
 eval/receipts/*
 !eval/receipts/.gitkeep
+
+# Demo video build outputs
+video/.frames/
+video/out/
+video/public/footage/
+video/public/voice/

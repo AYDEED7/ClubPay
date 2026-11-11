@@ -1,0 +1,18 @@
+{
+  "name": "clubpay-video",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Demo video for ClubPay: real app footage recorded with Playwright, assembled with Remotion.",
+  "scripts": {
+    "studio": "remotion studio src/index.jsx",
+    "render": "remotion render src/index.jsx ClubPayDemo out/clubpay-demo.mp4"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.543",
+    "playwright": "^1.65.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "remotion": "^4.0.543"
+  }
+}
