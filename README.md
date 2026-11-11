@@ -27,18 +27,7 @@ The AI recommends; a human always releases reimbursement money. Duplicate receip
 
 ## How it's built
 
-```mermaid
-flowchart LR
-  Member["Club member"] -->|"Uploads receipt"| UI["React app + AG Grid ledger"]
-  Treasurer["Treasurer"] -->|"Approves, bills dues, asks questions"| UI
-  UI -->|"REST"| API["Express API"]
-  API --> DB[("SQLite ledger")]
-  API -->|"Receipt + club policy"| Gemini["Google Gemini"]
-  Gemini -->|"Approve / flag / reject, tool calls"| API
-  API -->|"Payouts, Invoicing, Transaction Search"| PayPal["PayPal sandbox"]
-  PayPal -->|"Verified webhooks"| API
-  PayPal -->|"Money and invoices"| Member
-```
+![ClubPay architecture: member uploads a receipt, Gemini reviews it, the treasurer approves, PayPal pays, a webhook confirms](docs/architecture.svg)
 
 ```
 client/   React + Vite single-page app

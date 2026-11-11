@@ -6,7 +6,7 @@ import { api, money } from '../api.js';
 ModuleRegistry.registerModules([AllCommunityModule]);
 
 const theme = themeQuartz.withParams({
-  accentColor: '#2f5bea',
+  accentColor: '#5b5bf0',
   headerFontWeight: 600,
   fontFamily: 'inherit',
   borderRadius: 8,
@@ -14,12 +14,12 @@ const theme = themeQuartz.withParams({
 });
 
 const STATUS_COLOR = {
-  Paid: '#12805c',
-  'Payout in progress': '#2f5bea',
-  Sent: '#2f5bea',
-  'Needs review': '#a15c00',
-  Rejected: '#b3261e',
-  'Payout failed': '#b3261e',
+  Paid: '#0f9f6e',
+  'Payout in progress': '#0369a1',
+  Sent: '#0369a1',
+  'Needs review': '#b86a00',
+  Rejected: '#d92d4b',
+  'Payout failed': '#d92d4b',
 };
 
 const REIMBURSEMENT_STATUS = {
@@ -87,7 +87,7 @@ export default function Ledger({ overview }) {
         filter: 'agNumberColumnFilter',
         width: 130,
         valueFormatter: (p) => (p.value == null ? '' : money(p.value, currency)),
-        cellStyle: (p) => ({ color: p.value < 0 ? '#b3261e' : '#12805c', fontWeight: 600 }),
+        cellStyle: (p) => ({ color: p.value < 0 ? '#d92d4b' : '#0f9f6e', fontWeight: 600 }),
       },
       {
         field: 'status',
