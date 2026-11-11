@@ -1,0 +1,418 @@
+{
+  "info": {
+    "name": "ClubPay API",
+    "description": "Every endpoint of ClubPay, the AI treasurer for student clubs. Set the baseUrl variable to http://localhost:3001 for local runs or to the live demo URL. All PayPal calls behind these endpoints go to the PayPal sandbox.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://clubpay-8q3f.onrender.com"
+    },
+    {
+      "key": "reimbursementId",
+      "value": "1"
+    }
+  ],
+  "item": [
+    {
+      "name": "Status",
+      "item": [
+        {
+          "name": "Health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/health",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "health"
+              ]
+            },
+            "description": "Shows whether Gemini, PayPal and the webhook ID are configured."
+          }
+        },
+        {
+          "name": "Overview",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/overview",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "overview"
+              ]
+            },
+            "description": "Club settings, budgets, members, totals and recent activity."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reimbursements",
+      "item": [
+        {
+          "name": "List reimbursements",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/reimbursements",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reimbursements"
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Submit a receipt for AI review",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/reimbursements",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reimbursements"
+              ]
+            },
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "receipt",
+                  "type": "file",
+                  "src": ""
+                },
+                {
+                  "key": "memberId",
+                  "type": "text",
+                  "value": "1"
+                },
+                {
+                  "key": "note",
+                  "type": "text",
+                  "value": "Pizza for Thursday build night"
+                }
+              ]
+            },
+            "description": "Uploads a receipt image or PDF. Gemini extracts the fields and checks them against the club policy."
+          }
+        },
+        {
+          "name": "Approve and pay (PayPal Payout)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reimbursements/{{reimbursementId}}/approve",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reimbursements",
+                "{{reimbursementId}}",
+                "approve"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": 51.25\n}"
+            },
+            "description": "Human approval. Sends a PayPal sandbox payout to the member."
+          }
+        },
+        {
+          "name": "Reject",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/reimbursements/{{reimbursementId}}/reject",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reimbursements",
+                "{{reimbursementId}}",
+                "reject"
+              ]
+            },
+            "description": ""
+          }
+        }
+      ]
+    },
+    {
+      "name": "Dues",
+      "item": [
+        {
+          "name": "List invoices",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/invoices",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "invoices"
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Send dues invoices (PayPal Invoicing)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/invoices",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "invoices"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"memberIds\": [\n    1\n  ],\n  \"amount\": 20,\n  \"description\": \"Semester dues\"\n}"
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Remind unpaid members",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/invoices/remind",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "invoices",
+                "remind"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"note\": \"Friendly reminder that this club payment is still open.\"\n}"
+            },
+            "description": ""
+          }
+        }
+      ]
+    },
+    {
+      "name": "Assistant",
+      "item": [
+        {
+          "name": "Ask the treasurer assistant",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/agent",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "agent"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"How much have we spent on food so far?\"\n    }\n  ]\n}"
+            },
+            "description": "Gemini function calling over the ledger and PayPal."
+          }
+        }
+      ]
+    },
+    {
+      "name": "PayPal",
+      "item": [
+        {
+          "name": "Sync statuses with PayPal",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/sync",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "sync"
+              ]
+            },
+            "description": "Pulls the latest payout and invoice statuses."
+          }
+        },
+        {
+          "name": "Webhook receiver",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/webhooks/paypal",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "webhooks",
+                "paypal"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"event_type\": \"PAYMENT.PAYOUTS-ITEM.SUCCEEDED\"\n}"
+            },
+            "description": "Called by PayPal. Requests without a valid PayPal signature get 400."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Settings",
+      "item": [
+        {
+          "name": "Update club",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/club",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "club"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Robotics Club\",\n  \"policy\": \"1. Only expenses for official club activities are reimbursed.\",\n  \"budgets\": {\n    \"food\": 400,\n    \"supplies\": 600,\n    \"travel\": 500,\n    \"printing\": 150,\n    \"equipment\": 1000,\n    \"other\": 200\n  }\n}"
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Add member",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/members",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "members"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"New Member\",\n  \"email\": \"member@example.com\"\n}"
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Update member",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/members/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "members",
+                "1"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Jack\",\n  \"email\": \"member@example.com\"\n}"
+            },
+            "description": ""
+          }
+        }
+      ]
+    }
+  ]
+}

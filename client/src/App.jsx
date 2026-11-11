@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { lazy, Suspense, useCallback, useEffect, useState } from 'react';
 import { api } from './api.js';
 import Assistant from './pages/Assistant.jsx';
 import Dashboard from './pages/Dashboard.jsx';
@@ -6,10 +6,14 @@ import Dues from './pages/Dues.jsx';
 import Reimbursements from './pages/Reimbursements.jsx';
 import Settings from './pages/Settings.jsx';
 
+// AG Grid is large, so the ledger loads only when it is opened.
+const Ledger = lazy(() => import('./pages/Ledger.jsx'));
+
 const PAGES = [
   { id: 'dashboard', label: 'Dashboard', Component: Dashboard },
   { id: 'reimbursements', label: 'Reimbursements', Component: Reimbursements },
   { id: 'dues', label: 'Dues', Component: Dues },
+  { id: 'ledger', label: 'Ledger', Component: Ledger },
   { id: 'assistant', label: 'Assistant', Component: Assistant },
   { id: 'settings', label: 'Settings', Component: Settings },
 ];
@@ -86,7 +90,13 @@ export default function App() {
           </div>
         )}
         {error && <div className="banner error">{error}</div>}
-        {overview ? <Component overview={overview} health={health} refresh={refresh} /> : <p className="muted">Loading…</p>}
+        {overview ? (
+          <Suspense fallback={<p className="muted">Loading…</p>}>
+            <Component overview={overview} health={health} refresh={refresh} />
+          </Suspense>
+        ) : (
+          <p className="muted">Loading…</p>
+        )}
       </main>
     </div>
   );

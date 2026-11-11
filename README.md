@@ -27,6 +27,19 @@ The AI recommends; a human always releases reimbursement money. Duplicate receip
 
 ## How it's built
 
+```mermaid
+flowchart LR
+  Member["Club member"] -->|"Uploads receipt"| UI["React app + AG Grid ledger"]
+  Treasurer["Treasurer"] -->|"Approves, bills dues, asks questions"| UI
+  UI -->|"REST"| API["Express API"]
+  API --> DB[("SQLite ledger")]
+  API -->|"Receipt + club policy"| Gemini["Google Gemini"]
+  Gemini -->|"Approve / flag / reject, tool calls"| API
+  API -->|"Payouts, Invoicing, Transaction Search"| PayPal["PayPal sandbox"]
+  PayPal -->|"Verified webhooks"| API
+  PayPal -->|"Money and invoices"| Member
+```
+
 ```
 client/   React + Vite single-page app
 server/
@@ -36,12 +49,16 @@ server/
   services.js  Business logic shared by the API routes and the agent's tools
   db.js        SQLite (Node's built-in node:sqlite)
 eval/     Script that measures receipt-reading accuracy
+postman/  Postman collection for the API
 ```
 
 **Tools used**
 
 - **Google Gemini API** (`@google/genai`, model `gemini-3.5-flash` by default, override with `GEMINI_MODEL`). Vision reads receipts; a JSON schema constrains the review output, which the server validates again before saving; function calling drives the treasurer agent, whose tools call PayPal.
 - **PayPal REST API (sandbox)**: OAuth 2.0, Payouts, Invoicing v2, Transaction Search, Webhooks.
+- **AG Grid** (`ag-grid-react`): the Ledger page shows every reimbursement and dues invoice in one sortable, filterable grid with search and CSV export, so the club has an auditable record to hand to its advisor.
+- **Postman**: `postman/ClubPay.postman_collection.json` documents every API endpoint. Import it into Postman and set `baseUrl` to try the API against the live demo or a local run.
+- **Render**: hosts the live demo from `render.yaml`.
 - **React 19 + Vite**, **Express 5**, **SQLite**.
 - Built with **Claude Code**.
 
