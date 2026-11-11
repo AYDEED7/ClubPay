@@ -8,19 +8,28 @@ import { budgetOverview, remindUnpaid, sendDues } from './services.js';
 export const MODEL = process.env.GEMINI_MODEL || 'gemini-3.5-flash';
 export const isConfigured = () => Boolean(process.env.GEMINI_API_KEY);
 
-let client;
-const gemini = () => (client ??= new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY, httpOptions: { timeout: 60000 } }));
+// Free-tier models get throttled or time out without warning, so each call falls back down this list.
+const FALLBACK_MODELS = (process.env.GEMINI_FALLBACK_MODELS || 'gemini-3.6-flash,gemini-3.5-flash-lite')
+  .split(',')
+  .map((m) => m.trim())
+  .filter((m) => m && m !== MODEL);
 
-/** Gemini's free tier often answers 503 (overloaded) for a moment; retry a couple of times before giving up. */
+let client;
+const gemini = () => (client ??= new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY, httpOptions: { timeout: 25000 } }));
+
+/** Try the main model, then each fallback, when Gemini is rate limited (429), overloaded (503) or too slow (504). */
 async function generate(params) {
-  for (let attempt = 0; ; attempt++) {
+  let lastError;
+  for (const model of [MODEL, ...FALLBACK_MODELS]) {
     try {
-      return await gemini().models.generateContent(params);
+      return await gemini().models.generateContent({ ...params, model });
     } catch (err) {
-      if (!(err instanceof ApiError) || err.status !== 503 || attempt >= 2) throw err;
-      await new Promise((resolve) => setTimeout(resolve, 1500 * (attempt + 1)));
+      if (!(err instanceof ApiError) || ![429, 503, 504].includes(err.status)) throw err;
+      lastError = err;
+      console.warn(`Gemini ${model} unavailable (${err.status}); trying the next model`);
     }
   }
+  throw lastError;
 }
 
 const REVIEW_SCHEMA = {
