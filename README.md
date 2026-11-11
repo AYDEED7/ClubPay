@@ -4,6 +4,8 @@
 
 Built for the PayPal AI Hackathon ("Build What's Next with PayPal and AI").
 
+**Live demo:** https://clubpay-8q3f.onrender.com (PayPal sandbox, test money only. The free host sleeps when idle, so the first load can take about a minute.)
+
 ## The problem
 
 Every student club has a volunteer treasurer running money through a group chat and a spreadsheet:
