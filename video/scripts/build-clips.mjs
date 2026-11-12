@@ -36,7 +36,7 @@ for (const seg of segments) {
     fs.copyFileSync(path.join(framesDir, f.file), path.join(dir, name));
     timeline.push([Number(at.toFixed(3)), name]);
     const next = kept[i + 1];
-    if (!next) at += 0.6;
+    if (!next) at += Math.min(Math.max((seg.end - f.t) / 1000, 0.6), 4); // hold the final state as long as it was held on screen
     else if (seg.cuts.some(([a, b]) => f.t <= a && next.t >= b)) at += 0.4; // jump over a trimmed wait
     else at += Math.min((next.t - f.t) / 1000, 4);
   });
